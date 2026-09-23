@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Analisis Sentimen TikTok - IndoBERT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/templatemo-woox-travel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/owl.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .form-container { background: white; padding: 40px; margin: 50px auto; max-width: 850px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center; }
+        .table-container { margin-top: 40px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .nav-pills .nav-link { color: #666; background: #f8f9fa; border-radius: 10px; margin: 0 5px; font-weight: 500; transition: all 0.3s; }
+        .nav-pills .nav-link.active { background-color: #405590; color: white; }
+        .result-card { border: none; border-radius: 20px; background: linear-gradient(145deg, #ffffff, #f0f4f8); box-shadow: 0 8px 25px rgba(0,0,0,0.05); padding: 30px; margin-top: 25px; }
+        .sentiment-badge { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+        .confidence-text { color: #405590; font-weight: 600; font-size: 1.5rem; }
+        
+        #js-preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.98); display: none; align-items: center; justify-content: center; z-index: 999999; flex-direction: column; }
+        #js-preloader.active { display: flex !important; }
+
+        .stat-card { transition: all 0.3s ease; border-bottom: 5px solid #405590; background: white; }
+        .stat-card:hover { transform: translateY(-10px); }
+        .bg-custom-blue { background-color: #f0f4ff !important; padding: 80px 0; }
+        .x-small { font-size: 0.8rem; }
+        .rounded-20 { border-radius: 20px; }
+        .rounded-15 { border-radius: 15px; }
+
+
+        #top-banner-1 {
+            background-image: url("{{ url_for('static', filename='assets/images/banner1.png') }}") !important;
+            background-size: cover !important;
+            background-position: center !important;
+            min-height: 100vh !important;
+            display: flex !important;
+            align-items: center !important;
+    }
+
+    </style>
+</head>
+<body>
+
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner text-center">
+        <span class="dot"></span>
+        <div class="dots"><span></span><span></span><span></span></div>
+        <p style="margin-top:15px; font-size:14px; color:#405590; font-weight: bold;">Deep Learning sedang memproses...</p>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="header-area header-sticky">
+    <div class="container">
+        <nav class="main-nav">
+            <a href="/" class="logo"><img src="{{ url_for('static', filename='assets/images/logo.png') }}" alt=""></a>
+            <ul class="nav">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#analisis">Analisis</a></li>
+            </ul>
+            <a class="menu-trigger"><span>Menu</span></a>
+        </nav>
+    </div>
+</header>
+
+<!-- Home Banner -->
+<section id="home">
+    <div class="content-slider">
+        <div class="slider">
+            <div id="top-banner-1" class="banner">
+                <div class="banner-inner-wrapper header-text">
+                    <div class="main-caption">
+                        <h2>ANALISIS SENTIMEN</h2>
+                        <h1>Cyberbullying Pada TikTok <br> Menggunakan <br> IndoBERT</h1>
+                        <p>Menggunakan arsitektur Transformer (IndoBERT) untuk pemahaman bahasa yang lebih kontekstual <br>dalam mendeteksi ujaran kebencian secara otomatis.</p><br>
+                        <div class="button-container"><div class="border-button"><a href="#analisis">Mulai Analisis</a></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About & Statistik Terbaru -->
+<div class="bg-custom-blue">
+<section id="about" class="container">
+    <div class="row mb-5 text-center animate__animated animate__fadeIn">
+        <div class="col-lg-4 mb-3">
+            <div class="stat-card p-4 shadow-sm rounded-20">
+                <div class="icon-stat mb-2"><i class="fa fa-database text-info"></i></div>
+                <h2 class="fw-bold">8.194</h2>
+                <p class="text-dark mb-0">Total Dataset</p>
+                <small class="text-muted">Setelah Random Over-Sampling (ROS)</small>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-3">
+            <div class="stat-card p-4 shadow-sm rounded-20">
+                <div class="icon-stat mb-2"><i class="fa fa-rocket text-danger"></i></div>
+                <h2 class="fw-bold">93.00%</h2>
+                <p class="text-dark mb-0">Akurasi IndoBERT</p>
+                <small class="text-muted">Skenario Zero-Shot Classification</small>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-3">
+            <div class="stat-card p-4 shadow-sm rounded-20">
+                <div class="icon-stat mb-2"><i class="fa fa-microchip text-success"></i></div>
+                <h2 class="fw-bold">80:10:10</h2>
+                <p class="text-dark mb-0">Data Split</p>
+                <small class="text-muted">Train, Validation, Test</small>
+            </div>
+        </div>
+ </div> 
+
+<!-- Metode & Evaluasi -->
+    <div class="row align-items-start mb-5">
+        <div class="col-lg-6 mb-4">
+            <div class="section-heading text-start">
+                <h2>Metode Penelitian</h2>
+                <p class="text-dark">Penelitian ini membandingkan metode pelabelan <strong>Zero-Shot Classification</strong> dan <strong>InSet Lexicon</strong>, di mana hasil terbaik dicapai oleh IndoBERT pada skenario Zero-Shot dengan teknik penyeimbangan data (ROS).</p>
+            </div>
+            <div class="accordion shadow-sm rounded-20" id="methodAccordion">
+                <div class="accordion-item border-0 mb-2 rounded-15">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button rounded-15 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                            <i class="fa fa-brain me-2" style="color: #405590;"></i> Keunggulan IndoBERT
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#methodAccordion">
+                        <div class="accordion-body small">
+                           Arsitektur <i>Transformer</i> pada IndoBERT menggunakan mekanisme <i>self-attention</i> yang sangat efektif dalam mengenali konteks ujaran kebencian di TikTok, terutama setelah di-fine-tuning dengan data yang seimbang.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluasi Model (Update sesuai hasil 93%) -->
+        <div class="col-lg-6 mb-4">
+            <div class="section-heading text-start">
+                <h2>Evaluasi Model</h2>
+                <p class="text-dark">Hasil pengujian akhir pada data uji (test set) menunjukkan performa yang sangat stabil pada kedua kelas.</p>
+            </div>
+            <div class="accordion shadow-sm rounded-20" id="evaluationAccordion">
+                <div class="accordion-item border-0 mb-2 rounded-15">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button rounded-15 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#distribusiCollapse">
+                            <i class="fa fa-chart-pie me-2 text-info" style="color: #405590 !important;"></i> Distribusi Dataset (ROS)
+                        </button>
+                    </h2>
+                    <div id="distribusiCollapse" class="accordion-collapse collapse show" data-bs-parent="#evaluationAccordion">
+                        <div class="accordion-body">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between small mb-1">
+                                    <span class="fw-bold">Non-Bullying</span>
+                                    <span>4.097 Komentar (50.00%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-success" style="width: 50%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between small mb-1">
+                                    <span class="fw-bold">Bullying</span>
+                                    <span>4.097 Komentar (50.00%)</span>
+                                </div>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-danger" style="width: 50%"></div>
+                                </div>
+                            </div>
+                            <p class="x-small text-muted mt-3 mb-0">Total Dataset: 8.194 (Skenario ZSC)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 mb-2 rounded-15">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed rounded-15 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#matrixCollapse">
+                            <i class="fa fa-th me-2 text-info" style="color: #405590 !important;"></i> Confusion Matrix (IndoBERT)
+                        </button>
+                    </h2>
+                    <div id="matrixCollapse" class="accordion-collapse collapse" data-bs-parent="#evaluationAccordion">
+                        <div class="accordion-body">
+                            <table class="table table-bordered text-center x-small mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="small">Aktual \ Prediksi</th>
+                                        <th class="text-danger small">Bullying</th>
+                                        <th class="text-success small">Non-Bullying</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold small">Bullying</td>
+                                        <td class="fw-bold" style="background-color: #ffebee !important;">366</td>
+                                        <td>44</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold small">Non-Bullying</td>
+                                        <td>16</td>
+                                        <td class="fw-bold" style="background-color: #e8f5e9 !important;">394</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="x-small text-muted mt-2 mb-0">*Berdasarkan Support: 820 data uji</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item border-0 mb-2 rounded-15">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed rounded-15 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#performaCollapse">
+                            <i class="fa fa-check-double me-2 text-info" style="color: #405590 !important;"></i> Detail Performa (IndoBERT ZSC)
+                        </button>
+                    </h2>
+                    <div id="performaCollapse" class="accordion-collapse collapse" data-bs-parent="#evaluationAccordion">
+                        <div class="accordion-body p-0">
+                            <table class="table table-hover mb-0 x-small">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Metrik</th>
+                                        <th class="text-center">Hasil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Accuracy</td><td class="text-center fw-bold text-info">93.00%</td></tr>
+                                    <tr><td>Precision (Avg)</td><td class="text-center fw-bold">93.00%</td></tr>
+                                    <tr><td>Recall (Avg)</td><td class="text-center fw-bold">93.00%</td></tr>
+                                    <tr><td>F1-Score (Avg)</td><td class="text-center fw-bold">93.00%</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Alur Kerja Sistem -->
+   <div class="section-heading text-center mb-4 mt-5">
+    <h2>Alur Kerja Sistem</h2>
+    <p class="text-dark">Tahapan pemrosesan data komentar menggunakan Deep Learning</p>
+</div>
+
+<div class="row text-center animate__animated animate__fadeInUp">
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card p-4 shadow-sm rounded-20 bg-white h-100">
+            <div class="icon-stat mb-2"><i class="fa fa-broom text-info" style="color: #405590 !important;"></i></div>
+            <h6 class="fw-bold">Preprocessing</h6>
+            <p class="text-dark x-small mb-0">Pembersihan teks dari simbol, hashtag, mention, dan angka serta normalisasi kata slang agar data siap diolah.</p>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card p-4 shadow-sm rounded-20 bg-white h-100">
+            <div class="icon-stat mb-2"><i class="fa fa-list-ol text-info mb-2" style="color: #405590 !important;"></i></div>
+            <h6 class="fw-bold">Tokenizer</h6>
+            <p class="text-dark x-small mb-0">Proses pemecahan kalimat menjadi sub-kata (WordPiece) dan konversi teks menjadi ID numerik yang dipahami model.</p>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card p-4 shadow-sm rounded-20 bg-white h-100">
+            <div class="icon-stat mb-2"><i class="fa fa-layer-group text-info mb-2" style="color: #405590 !important;"></i></div>
+            <h6 class="fw-bold">BERT Layers</h6>
+            <p class="text-dark x-small mb-0">Ekstraksi fitur kontekstual melalui mekanisme Self-Attention untuk memahami hubungan makna antar kata secara mendalam.</p>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card p-4 shadow-sm rounded-20 bg-white h-100">
+            <div class="icon-stat mb-2"><i class="fa fa-flag-checkered text-info mb-2" style="color: #405590 !important;"></i></div>
+            <h6 class="fw-bold">Softmax</h6>
+            <p class="text-dark x-small mb-0">Tahap klasifikasi akhir untuk menghitung probabilitas skor dan menentukan label sentimen bullying atau non-bullying.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Analisis -->
+<section id="analisis" class="container mt-5 pt-5">
+    <div class="form-container">
+        <div class="section-heading">
+            <h2>Metode Analisis</h2>
+            <p class="x-small text-muted mb-0">Pilih analisis teks tunggal atau proses batch file CSV</p>
+        </div>
+        <ul class="nav nav-pills nav-justified mb-4" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link {{ 'active' if active_tab == 'manual' }}" id="pills-manual-tab" data-bs-toggle="pill" data-bs-target="#pills-manual" type="button">Analisis Teks</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link {{ 'active' if active_tab == 'batch' }}" id="pills-batch-tab" data-bs-toggle="pill" data-bs-target="#pills-batch" type="button">Analisis Batch (CSV)</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade {{ 'show active' if active_tab == 'manual' }}" id="pills-manual">
+                <form id="manualForm" action="/#analisis" method="POST">
+                    <div class="mb-4 text-start">
+                        <label class="form-label fw-bold">Masukkan komentar TikTok untuk dianalisis:</label>
+                        <textarea class="form-control" name="manual_text" rows="4" style="border-radius: 15px;" placeholder="Tulis komentar di sini..." required>{{ manual_result.text if manual_result else '' }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">🔍 Analisis Sekarang</button>
+                </form>
+                {% if manual_result %}
+                <div class="result-card animate__animated animate__zoomIn text-start">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <span class="text-muted small">Hasil Analisis Sentimen:</span>
+                            <div class="sentiment-badge {{ 'text-danger' if manual_result.sentiment == 'bullying' else 'text-success' }}">{{ manual_result.sentiment | upper }}</div>
+                            <p class="text-muted italic">"{{ manual_result.text }}"</p>
+                        </div>
+                        <div class="col-md-6 text-md-end text-center">
+                            <span class="text-muted small">Confidence Score:</span>
+                            <div class="confidence-text">{{ manual_result.confidence }}%</div>
+                            <div class="progress mt-2" style="height: 8px; border-radius: 5px;">
+                                <div class="progress-bar bg-info" style="width: {{ manual_result.confidence }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="tab-pane fade {{ 'show active' if active_tab == 'batch' }}" id="pills-batch">
+                <form id="csvForm" action="/#analisis" method="POST" enctype="multipart/form-data">
+                    <div class="mb-4 text-start">
+                        <label class="form-label fw-bold">Upload file CSV:</label>
+                        <input type="file" class="form-control py-2 rounded-15" name="file" accept=".csv" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill">📂 Proses Batch File</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if results %}
+    <div class="table-container animate__animated animate__fadeInUp">
+        <div class="row align-items-center mb-5 text-center">
+            <div class="col-lg-6"><canvas id="sentimentChart" style="max-height: 250px;"></canvas></div>
+        <div class="col-lg-6">
+            <h4 style="color: #000000 !important; font-weight: bold;">Statistik Batch IndoBERT</h4>
+            <p class="lead" style="color: #000000 !important; font-weight: 500;">{{ summary }}</p>
+            
+            <a href="{{ download_link }}" class="btn btn-success mt-3 shadow rounded-pill">💾 Download CSV Berlabel</a>
+        </div>
+        </div>
+    
+        <div class="row mb-3">
+            <div class="col-md-4 text-start">
+                <label class="form-label fw-bold small">Filter Polarity:</label>
+                <select class="form-select rounded-10" id="filterSentiment">
+                    <option value="ALL">All</option>
+                    <option value="BULLYING">Bullying</option>
+                    <option value="NON-BULLYING">Non-Bullying</option>
+                </select>
+            </div>
+        </div>
+        
+        <table class="table table-hover" id="sentimentTable">
+            <thead class="table-dark">
+                <tr><th width="70%">Komentar</th><th width="30%">Sentiment</th></tr>
+            </thead>
+            <tbody>
+        {% for row in results %}
+        <tr data-sentiment="{{ row['predicted_sentiment'] | upper }}">
+            <td class="small align-middle">{{ row['cleaned_text'] }}</td>
+            
+            <td class="text-center align-middle">
+                <span class="badge {{ 'bg-danger' if row['predicted_sentiment'] == 'bullying' else 'bg-success' }} mb-1" style="font-size: 0.9rem;">
+                    {{ row['predicted_sentiment'] | upper }}
+                </span>
+                <br>
+                <small class="text-muted d-block">
+                    Confidence: <strong>{{ row['confidence'] }}%</strong>
+                </small>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    </div>
+    {% endif %}
+</section>
+</div>
+
+<!-- Footer -->
+<footer><div class="container text-center"><p>Copyright © 2026 KTI David Rian Prabowo (22676001)</p></div></footer>
+
+<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    $(document).ready(function(){
+        // 1. Auto-scroll ke hasil
+        // Kita gunakan tanda kutip agar editor menganggapnya sebagai string saat divalidasi
+        var hasResult = "{{ 'true' if manual_result or results else 'false' }}";
+        if (hasResult === 'true') {
+            const element = document.getElementById('analisis');
+            if(element) element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 2. Filter Tabel
+        $('#filterSentiment').on('change', function() {
+            var val = $(this).val();
+            $('#sentimentTable tbody tr').each(function() {
+                var row = $(this).data('sentiment');
+                if (val === "ALL" || row === val) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        // 3. Chart.js
+        // Kita bungkus pengecekan hasilnya di luar agar JavaScript tidak bingung
+        var chartData = {{ pie_chart_data | tojson | safe if pie_chart_data else [0,0] }};
+        var resultsExist = {{ 'true' if results else 'false' }};
+
+        if (resultsExist === true) {
+            var ctx = document.getElementById('sentimentChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Bullying', 'Non-Bullying'],
+                        datasets: [{ 
+                            data: chartData, 
+                            backgroundColor: ['#ff4d4d', '#2ecc71'], 
+                            borderWidth: 2 
+                        }]
+                    },
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false 
+                    }
+                });
+            }
+        }
+    });
+
+    // 4. Preloader (tambahkan pengecekan element ada atau tidak agar tidak error)
+    var mForm = document.getElementById('manualForm');
+    var cForm = document.getElementById('csvForm');
+    var preloader = document.getElementById('js-preloader');
+
+    if(mForm) {
+        mForm.onsubmit = function() { preloader.classList.add('active'); };
+    }
+    if(cForm) {
+        cForm.onsubmit = function() { preloader.classList.add('active'); };
+    }
+</script>
+</body>
+</html>

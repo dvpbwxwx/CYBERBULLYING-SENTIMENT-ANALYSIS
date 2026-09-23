@@ -1,0 +1,160 @@
+/* Reset & Base */
+body {
+    background-color: #f0f4ff; /* Biru muda sangat lembut khas IndoBERT */
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Preloader Customization */
+.js-preloader {
+    background: rgba(255, 255, 255, 0.98);
+}
+
+/* Container untuk Form Analisis */
+.form-container { 
+    background: white; 
+    padding: 40px; 
+    margin: 50px auto; 
+    max-width: 850px; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 30px rgba(64, 85, 144, 0.1); 
+    text-align: center; 
+}
+
+/* Tombol-tombol */
+.btn-primary {
+    background-color: #405590; /* Biru Gelap Profesional */
+    border: none;
+    border-radius: 30px;
+    padding: 12px 30px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #304170;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(64, 85, 144, 0.3);
+}
+
+.btn-success {
+    background-color: #2ecc71;
+    border: none;
+    border-radius: 30px;
+}
+
+.btn-warning {
+    border-radius: 30px;
+    background-color: #ffc107;
+    border: none;
+    color: black;
+}
+
+/* Hasil Tabel */
+.table-container { 
+    margin-top: 40px; 
+    background: white; 
+    padding: 25px; 
+    border-radius: 20px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+}
+
+#sentimentTable {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* Chart */
+#sentimentChart {
+    max-width: 300px !important;
+    max-height: 300px !important;
+    margin: 0 auto;
+    display: block;
+}
+
+/* ====== SECTION PEMBATAS & CARD (Dari SVM+PSO) ====== */
+.bg-custom-blue {
+    background-color: #f0f4ff !important;
+    padding: 80px 0;
+}
+
+.stat-card { 
+    transition: all 0.3s ease; 
+    border-bottom: 5px solid #405590; 
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.stat-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 15px 35px rgba(64, 85, 144, 0.15) !important;
+}
+
+/* Result Card untuk Analisis Manual */
+.result-card { 
+    border: none; 
+    border-radius: 20px; 
+    background: linear-gradient(145deg, #ffffff, #f8faff); 
+    box-shadow: 0 8px 25px rgba(64, 85, 144, 0.08); 
+    padding: 30px; 
+    margin-top: 25px; 
+}
+
+.sentiment-badge { 
+    font-size: 2.2rem; 
+    font-weight: 800; 
+    margin-bottom: 5px; 
+    letter-spacing: -1px;
+}
+
+.confidence-text { 
+    color: #405590; 
+    font-weight: 700; 
+    font-size: 1.8rem; 
+}
+
+/* Nav Pills (Tab Manual/Batch) */
+.nav-pills .nav-link { 
+    color: #666; 
+    background: #f8f9fa; 
+    border-radius: 12px; 
+    margin: 0 5px; 
+    font-weight: 600; 
+    transition: all 0.3s; 
+}
+
+.nav-pills .nav-link.active { 
+    background-color: #405590; 
+    color: white; 
+}
+
+/* Accordion */
+.accordion-item {
+    border-radius: 15px !important;
+    margin-bottom: 10px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #f8faff;
+    color: #405590;
+    box-shadow: none;
+}
+
+/* Badge Sentiment */
+.badge.bg-danger {
+    background-color: #ff4d4d !important; /* Merah Bullying */
+}
+
+.badge.bg-success {
+    background-color: #2ecc71 !important; /* Hijau Non-Bullying */
+}
+
+/* Footer */
+footer {
+    padding: 40px 0;
+    background-color: #fff;
+    margin-top: 50px;
+    border-top: 1px solid #eee;
+}

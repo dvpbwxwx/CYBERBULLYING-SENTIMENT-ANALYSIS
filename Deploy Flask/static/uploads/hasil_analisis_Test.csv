@@ -1,0 +1,22 @@
+text_komentar,nama_akun,cleaned_text,predicted_sentiment,confidence
+@agusns: masyallah positif vibes banget kak nares,@agusns,masyallah positif vibes banget kak nares,non-bullying,97.92
+@clisminow: muka kau macam monyet,@clisminow,muka kau monyet,bullying,92.84
+@azizzeus: anak abah memang dajjal semua,@azizzeus,anak abah dajjal,bullying,59.25
+@elsamarista: semangat kak nares,@elsamarista,semangat kak nares,non-bullying,96.68
+@melisakartika: Nevan gue emang selalu ganteng,@melisakartika,nevan emang ganteng,non-bullying,97.0
+@panda: kak semangat kak Allah selalu bersama orang yang benar,@panda,kak semangat kak allah orang,non-bullying,94.07
+@rezaramadhan985: Kue Kontol,@rezaramadhan985,kue kontol,bullying,90.17
+"@jenyseo: pantes badan nya gede, makan uang orang",@jenyseo,pantes badan nya gede makan uang orang,bullying,88.09
+@ajiska: dasar drama kontol,@ajiska,dasar drama kontol,bullying,91.78
+@sashaa: APASIH LO TASYIIII GAJELAS BGT HAHAHAHAHAH,@sashaa,apasih lo tasyi gajelas banget hahahahahah,bullying,93.85
+@poposiroyo: orang kayak gini cocoknya jadi umpan buaya,@poposiroyo,orang kayak gin cocok umpan buaya,bullying,77.16
+@Chelsears: IH GANTENG BGT,@chelsears,ih ganteng banget,non-bullying,97.58
+@bedaorang: cakep bgtt soft boyyyy,@bedaorang,cakep banget soft boy,non-bullying,98.16
+@risavaradti: udah tahap mulai kecintaan sama Nicholas,@risavaradti,udah tahap cinta nicholas,non-bullying,81.82
+@caaee: apaan nih ganteng banget sih masya allah,@caaee,nih ganteng banget sih masya allah,non-bullying,95.88
+@ekasugik: Benerin Dulu tu muka lu Anjing Kesel gua,@ekasugik,benerin tu muka anjing kesel gua,bullying,94.31
+@dikaoke: mirip monyet ragunan kak,@dikaoke,monyet ragunan kak,bullying,92.23
+@rio_ngab: makin lama makin jago bikin konten,@rio_ngab,jago bikin konten,non-bullying,96.85
+"@bimskt: Muka lu kayak sampah, mending hapus aja akunnya",@bimskt,muka kayak sampah mending hapus akun,bullying,95.74
+"@finaaqq: Semangat ya kak kontennya, edukatif banget",@finaaqq,semangat ya kak konten edukatif banget,non-bullying,96.74
+@risasvrts: Cegil satu ini bener-bener redflag parah sih,@risasvrts,cegil benerbener redflag parah sih,bullying,92.72

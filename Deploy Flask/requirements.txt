@@ -1,0 +1,6 @@
+Flask
+pandas
+torch
+transformers
+nltk
+Sastrawi
